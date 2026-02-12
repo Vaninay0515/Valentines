@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine?</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    h1 {
+        color: white;
+        font-size: 2.5em;
+        margin-bottom: 40px;
+    }
+
+    .buttons {
+        position: relative;
+        width: 300px;
+        height: 150px;
+    }
+
+    button {
+        padding: 15px 40px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        position: absolute;
+    }
+
+    #yesBtn {
+        background-color: #ff4d6d;
+        color: white;
+        left: 20px;
+        top: 50px;
+    }
+
+    #noBtn {
+        background-color: white;
+        color: #ff4d6d;
+        left: 160px;  
+        top: 50px;
+        position: fixed !important;
+        z-index: 1000;
+        pointer-events: auto;
+    }
+
+    #message {
+        font-size: 2em;
+        color: white;
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+    }
+
+    .heart {
+        position: fixed;
+        font-size: 20px;
+        animation: floatUp 4s linear forwards;
+    }
+
+    @keyframes floatUp {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(-800px); opacity: 0; }
+    }
+
+</style>
+</head>
+<body>
+
+<h1>Will you be my date this Valentine’s? 💘</h1>
+
+<div class="buttons">
+    <button id="yesBtn">YES 💖</button>
+    <button id="noBtn">NO 😢</button>
+</div>
+
+<div id="message">No choice ka kupal!</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const message = document.getElementById("message");
+const container = document.querySelector(".buttons");
+
+yesBtn.addEventListener("click", () => {
+    document.querySelector("h1").style.display = "none";
+    document.querySelector(".buttons").style.display = "none";
+    message.style.display = "block";
+    startHearts();
+});
+
+
+noBtn.addEventListener("mouseover", moveNoButton);
+
+function moveNoButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+function startHearts() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.bottom = "0px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+    }, 300);
+}
+</script>
+
+</body>
+</html>
